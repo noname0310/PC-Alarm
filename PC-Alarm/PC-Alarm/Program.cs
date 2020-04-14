@@ -7,7 +7,11 @@ namespace PC_Alarm
     {
         static void Main(string[] args)
         {
-            Console.Write("Input Time to wake up:");
+            Console.WindowHeight = 2;
+            Console.WindowWidth = 60;
+            Console.BufferHeight = 2;
+            Console.BufferWidth = 60;
+            Console.Write("Input Time to wake up: ");
             string dateInput = Console.ReadLine();
             DateTime parsedDate = DateTime.Parse(dateInput);
             Console.WriteLine(string.Format("time was setted at {0}", parsedDate));
