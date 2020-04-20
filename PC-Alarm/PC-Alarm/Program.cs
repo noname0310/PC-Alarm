@@ -7,10 +7,25 @@ namespace PC_Alarm
     {
         static void Main(string[] args)
         {
-            Console.WindowHeight = 2;
+            Console.WindowHeight = 4;
             Console.WindowWidth = 60;
-            Console.BufferHeight = 2;
+            Console.BufferHeight = 4;
             Console.BufferWidth = 60;
+
+
+            InputType inputType;
+            Console.Write("Alarm Type: ");
+            string typeInput = Console.ReadLine();
+            if (typeInput == "s")
+            {
+                Console.WriteLine("AlarmType: Space");
+                inputType = InputType.space;
+            }
+            else
+            {
+                Console.WriteLine("AlarmType: Media Play");
+                inputType = InputType.play;
+            }
             Console.Write("Input Time to wake up: ");
             string dateInput = Console.ReadLine();
             DateTime parsedDate = DateTime.Parse(dateInput);
@@ -18,7 +33,10 @@ namespace PC_Alarm
 
             CountdownEvent countEventObject = new CountdownEvent(1);
             AlarmTimer alarmTimer = new AlarmTimer(parsedDate, countEventObject);
-            alarmTimer.Alarm += AlarmTimer_Alarm;
+            if (inputType == InputType.play)
+                alarmTimer.Alarm += AlarmTimer_Alarm;
+            else
+                alarmTimer.Alarm += AlarmTimer_SpaceAlarm;
             countEventObject.Wait();
             countEventObject.Dispose();
         }
@@ -27,5 +45,15 @@ namespace PC_Alarm
         {
             MusicKeyInput.PauseTrack();
         }
+        private static void AlarmTimer_SpaceAlarm(object sender, EventArgs e)
+        {
+            MusicKeyInput.SpaceTrack();
+        }
+    }
+
+    enum InputType
+    {
+        space,
+        play
     }
 }

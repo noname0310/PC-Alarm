@@ -10,6 +10,7 @@ namespace PC_Alarm
         public const int VK_MEDIA_NEXT_TRACK = 0xB0;// code to jump to next track
         public const int VK_MEDIA_PLAY_PAUSE = 0xB3;// code to play or pause a song
         public const int VK_MEDIA_PREV_TRACK = 0xB1;// code to jump to prev track
+        public const int VK_SPACE = 0x20;// code to space
 
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
@@ -31,6 +32,12 @@ namespace PC_Alarm
             // Jump to next track
             keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, IntPtr.Zero);
             keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_KEYUP, IntPtr.Zero);
+        }
+        public static void SpaceTrack()
+        {
+            // Play or Pause music
+            keybd_event(VK_SPACE, 0, KEYEVENTF_EXTENTEDKEY, IntPtr.Zero);
+            keybd_event(VK_SPACE, 0, KEYEVENTF_KEYUP, IntPtr.Zero);
         }
     }
 }
